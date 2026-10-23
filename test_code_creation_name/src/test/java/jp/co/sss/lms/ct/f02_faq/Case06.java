@@ -105,14 +105,41 @@ public class Case06 {
 	@Order(5)
 	@DisplayName("テスト05 カテゴリ検索で該当カテゴリの検索結果だけ表示")
 	void test05() {
-		// TODO ここに追加
+		WebElement categoryLink = webDriver.findElement(By.linkText("【研修関係】"));
+		categoryLink.click();
+
+		visibilityTimeout(By.id("question-h1"), 10);
+		WebElement firstFaq = webDriver.findElement(By.id("question-h1"));
+		WebElement secondFaq = webDriver.findElement(By.id("question-h0"));
+
+		assertEquals("よくある質問 | LMS", webDriver.getTitle());
+		assertEquals("Q.研修の申し込みはどのようにすれば良いですか？", firstFaq.getText());
+		assertEquals("Q.キャンセル料・途中退校について", secondFaq.getText());
+
+		scrollBy("250");
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
 	@Order(6)
 	@DisplayName("テスト06 検索結果の質問をクリックしその回答を表示")
 	void test06() {
-		// TODO ここに追加
+		WebElement firstFaq = webDriver.findElement(By.id("question-h1"));
+		WebElement secondFaq = webDriver.findElement(By.id("question-h0"));
+		firstFaq.click();
+		secondFaq.click();
+
+		WebElement firstFaqAnswer = webDriver.findElement(By.id("answer-h1"));
+		WebElement secondFaqAnswer = webDriver.findElement(By.id("answer-h0"));
+
+		assertEquals("よくある質問 | LMS", webDriver.getTitle());
+		assertTrue(firstFaqAnswer.isDisplayed());
+		assertTrue(secondFaqAnswer.isDisplayed());
+
+		scrollBy("100");
+		getEvidence(new Object() {
+		});
 	}
 
 }

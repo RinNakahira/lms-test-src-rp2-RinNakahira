@@ -111,6 +111,7 @@ public class Case05 {
 		WebElement submitBtn = webDriver.findElement(By.cssSelector("input[type=\"submit\"]"));
 		submitBtn.click();
 
+		visibilityTimeout(By.id("question-h1"), 10);
 		WebElement firstFaq = webDriver.findElement(By.id("question-h1"));
 		WebElement secondFaq = webDriver.findElement(By.id("question-h2"));
 		WebElement thirdFaq = webDriver.findElement(By.id("question-h0"));

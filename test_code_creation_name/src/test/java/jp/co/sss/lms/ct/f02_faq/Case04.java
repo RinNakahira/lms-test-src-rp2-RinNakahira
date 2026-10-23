@@ -91,6 +91,8 @@ public class Case04 {
 		faq.click();
 
 		pageLoadTimeout(10);
+
+		//よくある質問が別タブで開くため切り替える
 		Object[] windowHandles = webDriver.getWindowHandles().toArray();
 		webDriver.switchTo().window((String) windowHandles[1]);
 		assertEquals("よくある質問 | LMS", webDriver.getTitle());

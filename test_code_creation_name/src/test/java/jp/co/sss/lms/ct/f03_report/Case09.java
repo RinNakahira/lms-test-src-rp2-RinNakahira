@@ -60,7 +60,13 @@ public class Case09 {
 		loginBtn.click();
 
 		pageLoadTimeout(10);
+		WebElement target = webDriver.findElement(By.cssSelector("#main > div > div:nth-of-type(2) tr:nth-of-type(2)"));
+		WebElement targetDate = target.findElement(By.cssSelector("td"));
+		WebElement targetStatus = target.findElement(By.tagName("span"));
+
 		assertEquals("コース詳細 | LMS", webDriver.getTitle());
+		assertEquals("2022年10月2日(日)", targetDate.getText());
+		assertEquals("提出済み", targetStatus.getText());
 
 		getEvidence(new Object() {
 		});
@@ -70,14 +76,57 @@ public class Case09 {
 	@Order(3)
 	@DisplayName("テスト03 上部メニューの「ようこそ○○さん」リンクからユーザー詳細画面に遷移")
 	void test03() {
-		// TODO ここに追加
+		WebElement userDetailLink = webDriver.findElement(By.linkText("ようこそ受講生ＡＡ１さん"));
+		userDetailLink.click();
+
+		pageLoadTimeout(10);
+		WebElement target = webDriver
+				.findElement(By.cssSelector("#main > table:nth-of-type(3) tr:nth-last-of-type(3)"));
+		WebElement targetDate = target.findElement(By.tagName("td"));
+		WebElement targetType = target.findElement(By.cssSelector("td:nth-of-type(2)"));
+
+		assertEquals("ユーザー詳細", webDriver.getTitle());
+		assertEquals("2022年10月2日(日)", targetDate.getText());
+		assertEquals("週報【デモ】", targetType.getText());
+
+		getEvidence(new Object() {
+		}, "1");
+		scrollBy("500");
+		getEvidence(new Object() {
+		}, "2");
 	}
 
 	@Test
 	@Order(4)
 	@DisplayName("テスト04 該当レポートの「修正する」ボタンを押下しレポート登録画面に遷移")
 	void test04() {
-		// TODO ここに追加
+		WebElement fixBtn = webDriver
+				.findElement(
+						By.cssSelector(
+								"#main > table:nth-of-type(3) tr:nth-last-of-type(3) input[value=\"修正する\"]"));
+		fixBtn.click();
+
+		pageLoadTimeout(10);
+		WebElement date = webDriver.findElement(By.cssSelector("#main small"));
+		WebElement learningTopic = webDriver.findElement(By.id("intFieldName_0"));
+		WebElement understandingDegree = webDriver.findElement(By.id("intFieldValue_0"));
+		WebElement goalAchievementDegree = webDriver.findElement(By.id("content_0"));
+		WebElement impression = webDriver.findElement(By.id("content_1"));
+		WebElement weeklyReflection = webDriver.findElement(By.id("content_2"));
+
+		assertEquals("レポート登録 | LMS", webDriver.getTitle());
+		assertEquals("2022年10月2日", date.getText());
+		assertEquals("テスト修正後", learningTopic.getAttribute("value"));
+		assertEquals("3", understandingDegree.findElement(By.cssSelector("option[selected]")).getText());
+		assertEquals("10", goalAchievementDegree.getText());
+		assertEquals("週報のサンプル修正後です。", impression.getText());
+		assertEquals("テスト修正後のテキストです。", weeklyReflection.getText());
+
+		getEvidence(new Object() {
+		}, "1");
+		scrollBy("300");
+		getEvidence(new Object() {
+		}, "2");
 	}
 
 	@Test

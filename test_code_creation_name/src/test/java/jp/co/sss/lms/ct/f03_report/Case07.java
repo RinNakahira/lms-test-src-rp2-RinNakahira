@@ -1,6 +1,7 @@
 package jp.co.sss.lms.ct.f03_report;
 
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -9,6 +10,8 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 /**
  * 結合テスト レポート機能
@@ -35,35 +38,97 @@ public class Case07 {
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
-		// TODO ここに追加
+		goTo("http://localhost:8080/lms/");
+		assertEquals("ログイン | LMS", webDriver.getTitle());
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
 	@Order(2)
 	@DisplayName("テスト02 初回ログイン済みの受講生ユーザーでログイン")
 	void test02() {
-		// TODO ここに追加
+		WebElement loginId = webDriver.findElement(By.id("loginId"));
+		loginId.clear();
+		loginId.sendKeys("StudentAA01");
+
+		WebElement password = webDriver.findElement(By.id("password"));
+		password.clear();
+		password.sendKeys("Password123");
+
+		WebElement loginBtn = webDriver.findElement(By.className("btn"));
+		loginBtn.click();
+
+		pageLoadTimeout(10);
+		WebElement target = webDriver.findElement(By.cssSelector("#main > div > div:nth-of-type(3) tr"));
+		WebElement targetDate = target.findElement(By.cssSelector("td"));
+		WebElement targetStatus = target.findElement(By.tagName("span"));
+
+		assertEquals("コース詳細 | LMS", webDriver.getTitle());
+		assertEquals("2022年10月5日(水)", targetDate.getText());
+		assertEquals("未提出", targetStatus.getText());
+
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
 	@Order(3)
 	@DisplayName("テスト03 未提出の研修日の「詳細」ボタンを押下しセクション詳細画面に遷移")
 	void test03() {
-		// TODO ここに追加
+		WebElement targetBtn = webDriver
+				.findElement(By.cssSelector("#main > div > div:nth-of-type(3) tr input[type=\"submit\"]"));
+		targetBtn.click();
+
+		pageLoadTimeout(10);
+		WebElement date = webDriver.findElement(By.cssSelector("#sectionDetail small"));
+		WebElement submitBtn = webDriver.findElement(By.cssSelector("#sectionDetail .btn"));
+
+		assertEquals("セクション詳細 | LMS", webDriver.getTitle());
+		assertEquals("2022年10月5日", date.getText());
+		assertEquals("日報【デモ】を提出する", submitBtn.getAttribute("value"));
+
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
 	@Order(4)
 	@DisplayName("テスト04 「提出する」ボタンを押下しレポート登録画面に遷移")
 	void test04() {
-		// TODO ここに追加
+		WebElement submitBtn = webDriver.findElement(By.cssSelector("#sectionDetail .btn"));
+		submitBtn.click();
+
+		pageLoadTimeout(10);
+		WebElement date = webDriver.findElement(By.cssSelector("#main small"));
+		assertEquals("レポート登録 | LMS", webDriver.getTitle());
+		assertEquals("2022年10月5日", date.getText());
+
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
 	@Order(5)
 	@DisplayName("テスト05 報告内容を入力して「提出する」ボタンを押下し確認ボタン名が更新される")
 	void test05() {
-		// TODO ここに追加
+		WebElement textArea = webDriver.findElement(By.id("content_0"));
+		textArea.clear();
+		textArea.sendKeys("テスト");
+
+		WebElement registerBtn = webDriver.findElement(By.cssSelector("#main button"));
+		registerBtn.click();
+
+		pageLoadTimeout(10);
+		WebElement detailBtn = webDriver.findElement(By.cssSelector("#sectionDetail .btn"));
+		WebElement date = webDriver.findElement(By.cssSelector("#sectionDetail small"));
+
+		assertEquals("セクション詳細 | LMS", webDriver.getTitle());
+		assertEquals("2022年10月5日", date.getText());
+		assertEquals("提出済み日報【デモ】を確認する", detailBtn.getAttribute("value"));
+
+		getEvidence(new Object() {
+		});
 	}
 
 }

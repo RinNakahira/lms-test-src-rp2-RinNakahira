@@ -1,6 +1,7 @@
 package jp.co.sss.lms.ct.f03_report;
 
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -9,6 +10,8 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 /**
  * 結合テスト レポート機能
@@ -35,14 +38,38 @@ public class Case08 {
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
-		// TODO ここに追加
+		goTo("http://localhost:8080/lms/");
+		assertEquals("ログイン | LMS", webDriver.getTitle());
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
 	@Order(2)
 	@DisplayName("テスト02 初回ログイン済みの受講生ユーザーでログイン")
 	void test02() {
-		// TODO ここに追加
+		WebElement loginId = webDriver.findElement(By.id("loginId"));
+		loginId.clear();
+		loginId.sendKeys("StudentAA01");
+
+		WebElement password = webDriver.findElement(By.id("password"));
+		password.clear();
+		password.sendKeys("Password123");
+
+		WebElement loginBtn = webDriver.findElement(By.className("btn"));
+		loginBtn.click();
+
+		pageLoadTimeout(10);
+		WebElement target = webDriver.findElement(By.cssSelector("#main > div > div:nth-of-type(3) tr"));
+		WebElement targetDate = target.findElement(By.cssSelector("td"));
+		WebElement targetStatus = target.findElement(By.tagName("span"));
+
+		assertEquals("コース詳細 | LMS", webDriver.getTitle());
+		assertEquals("2022年10月5日(水)", targetDate.getText());
+		assertEquals("未提出", targetStatus.getText());
+
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test

@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 /**
  * 結合テスト レポート機能
@@ -92,7 +93,7 @@ public class Case08 {
 		assertEquals("2022年10月2日", date.getText());
 		assertEquals("提出済み週報【デモ】を確認する", confirmBtn.getAttribute("value"));
 
-		scrollBy("100");
+		scrollBy("80");
 		getEvidence(new Object() {
 		});
 	}
@@ -137,28 +138,98 @@ public class Case08 {
 	@DisplayName("テスト05 報告内容を修正して「提出する」ボタンを押下しセクション詳細画面に遷移")
 	void test05() {
 		WebElement learningTopic = webDriver.findElement(By.id("intFieldName_0"));
-		WebElement understandingDegree = webDriver.findElement(By.id("intFieldValue_0"));
-		WebElement goalAchievementDegree = webDriver.findElement(By.id("content_0"));
-		WebElement impression = webDriver.findElement(By.id("content_1"));
-		WebElement weeklyReflection = webDriver.findElement(By.id("content_2"));
-
 		learningTopic.clear();
 		learningTopic.sendKeys("テスト修正後");
 
+		Select understandingDegree = new Select(webDriver.findElement(By.id("intFieldValue_0")));
+		understandingDegree.selectByValue("3");
+
+		WebElement goalAchievementDegree = webDriver.findElement(By.id("content_0"));
+		goalAchievementDegree.clear();
+		goalAchievementDegree.sendKeys("10");
+
+		WebElement impression = webDriver.findElement(By.id("content_1"));
+		impression.clear();
+		impression.sendKeys("週報のサンプル修正後です。");
+
+		WebElement weeklyReflection = webDriver.findElement(By.id("content_2"));
+		weeklyReflection.clear();
+		weeklyReflection.sendKeys("テスト修正後のテキストです。");
+
+		WebElement submitBtn = webDriver.findElement(By.cssSelector("button[type=\"submit\"]"));
+		submitBtn.click();
+
+		pageLoadTimeout(10);
+		WebElement date = webDriver.findElement(By.cssSelector("#sectionDetail small"));
+		WebElement confirmBtn = webDriver
+				.findElement(
+						By.cssSelector(
+								"#sectionDetail table:nth-of-type(2) tr:nth-of-type(3) input[type=\"submit\"]"));
+
+		assertEquals("セクション詳細 | LMS", webDriver.getTitle());
+		assertEquals("2022年10月2日", date.getText());
+		assertEquals("提出済み週報【デモ】を確認する", confirmBtn.getAttribute("value"));
+
+		scrollBy("80");
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
 	@Order(6)
 	@DisplayName("テスト06 上部メニューの「ようこそ○○さん」リンクからユーザー詳細画面に遷移")
 	void test06() {
-		// TODO ここに追加
+		WebElement userDetailLink = webDriver.findElement(By.linkText("ようこそ受講生ＡＡ１さん"));
+		userDetailLink.click();
+
+		pageLoadTimeout(10);
+		WebElement target = webDriver
+				.findElement(By.cssSelector("#main > table:nth-of-type(3) tr:nth-last-of-type(3)"));
+		WebElement targetDate = target.findElement(By.tagName("td"));
+		WebElement targetType = target.findElement(By.cssSelector("td:nth-of-type(2)"));
+
+		assertEquals("ユーザー詳細", webDriver.getTitle());
+		assertEquals("2022年10月2日(日)", targetDate.getText());
+		assertEquals("週報【デモ】", targetType.getText());
+
+		getEvidence(new Object() {
+		}, "1");
+		scrollBy("500");
+		getEvidence(new Object() {
+		}, "2");
 	}
 
 	@Test
 	@Order(7)
 	@DisplayName("テスト07 該当レポートの「詳細」ボタンを押下しレポート詳細画面で修正内容が反映される")
 	void test07() {
-		// TODO ここに追加
+		WebElement detailBtn = webDriver
+				.findElement(
+						By.cssSelector("#main > table:nth-of-type(3) tr:nth-last-of-type(3) input[type=\"submit\"]"));
+		detailBtn.click();
+
+		pageLoadTimeout(10);
+		WebElement date = webDriver.findElement(By.cssSelector("#main small"));
+		WebElement learningTopic = webDriver.findElement(By.cssSelector("#main > div tr:nth-of-type(2) td"));
+		WebElement understandingDegree = webDriver
+				.findElement(By.cssSelector("#main > div tr:nth-of-type(2) td:nth-of-type(2)"));
+
+		WebElement goalAchievementDegree = webDriver.findElement(By.cssSelector("#main > div:nth-of-type(2) tr td"));
+		WebElement impression = webDriver
+				.findElement(By.cssSelector("#main > div:nth-of-type(2) tr:nth-of-type(2) td"));
+		WebElement weeklyReflection = webDriver
+				.findElement(By.cssSelector("#main > div:nth-of-type(2) tr:nth-of-type(3) td"));
+
+		assertEquals("レポート詳細 | LMS", webDriver.getTitle());
+		assertEquals("2022年10月2日", date.getText());
+		assertEquals("テスト修正後", learningTopic.getText());
+		assertEquals("3", understandingDegree.getText());
+		assertEquals("10", goalAchievementDegree.getText());
+		assertEquals("週報のサンプル修正後です。", impression.getText());
+		assertEquals("テスト修正後のテキストです。", weeklyReflection.getText());
+
+		getEvidence(new Object() {
+		});
 	}
 
 }

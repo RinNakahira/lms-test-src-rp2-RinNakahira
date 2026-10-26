@@ -84,14 +84,11 @@ public class Case08 {
 
 		pageLoadTimeout(10);
 		WebElement date = webDriver.findElement(By.cssSelector("#sectionDetail small"));
-		WebElement confirmBtn = webDriver
-				.findElement(
-						By.cssSelector(
-								"#sectionDetail table:nth-of-type(2) tr:nth-of-type(3) input[type=\"submit\"]"));
+		WebElement confirmBtn = webDriver.findElement(By.cssSelector("input[value=\"提出済み週報【デモ】を確認する\"]"));
 
 		assertEquals("セクション詳細 | LMS", webDriver.getTitle());
 		assertEquals("2022年10月2日", date.getText());
-		assertEquals("提出済み週報【デモ】を確認する", confirmBtn.getAttribute("value"));
+		assertTrue(confirmBtn.isDisplayed());
 
 		scrollBy("80");
 		getEvidence(new Object() {
@@ -102,10 +99,7 @@ public class Case08 {
 	@Order(4)
 	@DisplayName("テスト04 「確認する」ボタンを押下しレポート登録画面に遷移")
 	void test04() {
-		WebElement cofirmBtn = webDriver
-				.findElement(
-						By.cssSelector(
-								"#sectionDetail table:nth-of-type(2) tr:nth-of-type(3) input[type=\"submit\"]"));
+		WebElement cofirmBtn = webDriver.findElement(By.cssSelector("input[value=\"提出済み週報【デモ】を確認する\"]"));
 		cofirmBtn.click();
 
 		pageLoadTimeout(10);
@@ -161,14 +155,11 @@ public class Case08 {
 
 		pageLoadTimeout(10);
 		WebElement date = webDriver.findElement(By.cssSelector("#sectionDetail small"));
-		WebElement confirmBtn = webDriver
-				.findElement(
-						By.cssSelector(
-								"#sectionDetail table:nth-of-type(2) tr:nth-of-type(3) input[type=\"submit\"]"));
+		WebElement confirmBtn = webDriver.findElement(By.cssSelector("input[value=\"提出済み週報【デモ】を確認する\"]"));
 
 		assertEquals("セクション詳細 | LMS", webDriver.getTitle());
 		assertEquals("2022年10月2日", date.getText());
-		assertEquals("提出済み週報【デモ】を確認する", confirmBtn.getAttribute("value"));
+		assertTrue(confirmBtn.isDisplayed());
 
 		scrollBy("80");
 		getEvidence(new Object() {

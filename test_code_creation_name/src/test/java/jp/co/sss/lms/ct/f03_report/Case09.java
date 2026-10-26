@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 /**
  * 結合テスト レポート機能
@@ -133,21 +134,110 @@ public class Case09 {
 	@Order(5)
 	@DisplayName("テスト05 報告内容を修正して「提出する」ボタンを押下しエラー表示：学習項目が未入力")
 	void test05() {
-		// TODO ここに追加
+		WebElement learningTopicBefore = webDriver.findElement(By.id("intFieldName_0"));
+		learningTopicBefore.clear();
+
+		WebElement submitBtn = webDriver.findElement(By.cssSelector("#main button"));
+		scrollBy("500");
+		submitBtn.click();
+
+		pageLoadTimeout(10);
+		WebElement date = webDriver.findElement(By.cssSelector("#main small"));
+		WebElement errorInput = webDriver.findElement(By.className("errorInput"));
+		WebElement understandingDegree = webDriver.findElement(By.id("intFieldValue_0"));
+		WebElement goalAchievementDegree = webDriver.findElement(By.id("content_0"));
+		WebElement impression = webDriver.findElement(By.id("content_1"));
+		WebElement weeklyReflection = webDriver.findElement(By.id("content_2"));
+
+		assertEquals("レポート登録 | LMS", webDriver.getTitle());
+		assertEquals("2022年10月2日", date.getText());
+		assertEquals("", errorInput.getAttribute("value"));
+		assertEquals("3", understandingDegree.findElement(By.cssSelector("option[selected]")).getText());
+		assertEquals("10", goalAchievementDegree.getText());
+		assertEquals("週報のサンプル修正後です。", impression.getText());
+		assertEquals("テスト修正後のテキストです。", weeklyReflection.getText());
+
+		getEvidence(new Object() {
+		}, "1");
+		scrollBy("300");
+		getEvidence(new Object() {
+		}, "2");
 	}
 
 	@Test
 	@Order(6)
 	@DisplayName("テスト06 不適切な内容で修正して「提出する」ボタンを押下しエラー表示：理解度が未入力")
 	void test06() {
-		// TODO ここに追加
+		WebElement learningTopicBefore = webDriver.findElement(By.id("intFieldName_0"));
+		learningTopicBefore.clear();
+		learningTopicBefore.sendKeys("テスト修正後");
+
+		Select understandingDegreeBefore = new Select(webDriver.findElement(By.id("intFieldValue_0")));
+		understandingDegreeBefore.selectByIndex(0);
+
+		WebElement submitBtn = webDriver.findElement(By.cssSelector("#main button"));
+		scrollBy("500");
+		submitBtn.click();
+
+		pageLoadTimeout(10);
+		WebElement date = webDriver.findElement(By.cssSelector("#main small"));
+		WebElement errorInput = webDriver.findElement(By.className("errorInput"));
+		WebElement learningTopic = webDriver.findElement(By.id("intFieldName_0"));
+		WebElement goalAchievementDegree = webDriver.findElement(By.id("content_0"));
+		WebElement impression = webDriver.findElement(By.id("content_1"));
+		WebElement weeklyReflection = webDriver.findElement(By.id("content_2"));
+
+		assertEquals("レポート登録 | LMS", webDriver.getTitle());
+		assertEquals("2022年10月2日", date.getText());
+		assertEquals("テスト修正後", learningTopic.getAttribute("value"));
+		assertFalse(errorInput.isSelected());
+		assertEquals("10", goalAchievementDegree.getText());
+		assertEquals("週報のサンプル修正後です。", impression.getText());
+		assertEquals("テスト修正後のテキストです。", weeklyReflection.getText());
+
+		getEvidence(new Object() {
+		}, "1");
+		scrollBy("300");
+		getEvidence(new Object() {
+		}, "2");
 	}
 
 	@Test
 	@Order(7)
 	@DisplayName("テスト07 不適切な内容で修正して「提出する」ボタンを押下しエラー表示：目標の達成度が数値以外")
 	void test07() {
-		// TODO ここに追加
+		Select understandingDegreeBefore = new Select(webDriver.findElement(By.id("intFieldValue_0")));
+		understandingDegreeBefore.selectByValue("3");
+
+		WebElement goalAchievementDegreeBefore = webDriver.findElement(By.id("content_0"));
+		goalAchievementDegreeBefore.clear();
+		goalAchievementDegreeBefore.sendKeys("よくできた");
+
+		WebElement submitBtn = webDriver.findElement(By.cssSelector("#main button"));
+		scrollBy("500");
+		submitBtn.click();
+
+		pageLoadTimeout(10);
+		WebElement date = webDriver.findElement(By.cssSelector("#main small"));
+		WebElement errorInput = webDriver.findElement(By.id("content_0"));
+		WebElement learningTopic = webDriver.findElement(By.id("intFieldName_0"));
+		WebElement understandingDegree = webDriver.findElement(By.id("intFieldValue_0"));
+		WebElement impression = webDriver.findElement(By.id("content_1"));
+		WebElement weeklyReflection = webDriver.findElement(By.id("content_2"));
+
+		assertEquals("レポート登録 | LMS", webDriver.getTitle());
+		assertEquals("2022年10月2日", date.getText());
+		assertEquals("テスト修正後", learningTopic.getAttribute("value"));
+		assertEquals("3", understandingDegree.findElement(By.cssSelector("option[selected]")).getText());
+		assertEquals("よくできた", errorInput.getText());
+		assertEquals("週報のサンプル修正後です。", impression.getText());
+		assertEquals("テスト修正後のテキストです。", weeklyReflection.getText());
+
+		getEvidence(new Object() {
+		}, "1");
+		scrollBy("300");
+		getEvidence(new Object() {
+		}, "2");
 	}
 
 	@Test

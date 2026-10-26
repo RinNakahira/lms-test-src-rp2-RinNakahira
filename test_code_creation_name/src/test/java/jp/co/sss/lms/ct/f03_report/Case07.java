@@ -76,9 +76,9 @@ public class Case07 {
 	@Order(3)
 	@DisplayName("テスト03 未提出の研修日の「詳細」ボタンを押下しセクション詳細画面に遷移")
 	void test03() {
-		WebElement targetBtn = webDriver
+		WebElement detailBtn = webDriver
 				.findElement(By.cssSelector("#main > div > div:nth-of-type(3) tr input[type=\"submit\"]"));
-		targetBtn.click();
+		detailBtn.click();
 
 		pageLoadTimeout(10);
 		WebElement date = webDriver.findElement(By.cssSelector("#sectionDetail small"));
@@ -120,12 +120,12 @@ public class Case07 {
 		registerBtn.click();
 
 		pageLoadTimeout(10);
-		WebElement detailBtn = webDriver.findElement(By.cssSelector("#sectionDetail .btn"));
 		WebElement date = webDriver.findElement(By.cssSelector("#sectionDetail small"));
+		WebElement cofirmBtn = webDriver.findElement(By.cssSelector("#sectionDetail .btn"));
 
 		assertEquals("セクション詳細 | LMS", webDriver.getTitle());
 		assertEquals("2022年10月5日", date.getText());
-		assertEquals("提出済み日報【デモ】を確認する", detailBtn.getAttribute("value"));
+		assertEquals("提出済み日報【デモ】を確認する", cofirmBtn.getAttribute("value"));
 
 		getEvidence(new Object() {
 		});

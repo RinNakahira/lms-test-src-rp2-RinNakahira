@@ -87,7 +87,7 @@ public class Case08 {
 		WebElement confirmBtn = webDriver
 				.findElement(
 						By.cssSelector(
-								"#sectionDetail table:nth-of-type(2) tr:nth-of-type(3) input[value=\"submit\"]"));
+								"#sectionDetail table:nth-of-type(2) tr:nth-of-type(3) input[type=\"submit\"]"));
 
 		assertEquals("セクション詳細 | LMS", webDriver.getTitle());
 		assertEquals("2022年10月2日", date.getText());

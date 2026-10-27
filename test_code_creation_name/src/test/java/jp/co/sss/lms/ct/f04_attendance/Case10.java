@@ -105,6 +105,7 @@ public class Case10 {
 		alert.accept();
 
 		pageLoadTimeout(10);
+		WebElement updateMsg = webDriver.findElement(By.cssSelector(".alert > span"));
 		WebElement punchInTime = webDriver.findElement(By.cssSelector(".info td:nth-of-type(3)"));
 		WebElement punchOutTime = webDriver.findElement(By.cssSelector(".info td:nth-of-type(4)"));
 		Date date = new Date();
@@ -112,6 +113,7 @@ public class Case10 {
 		String formatDate = df.format(date);
 
 		assertEquals("勤怠情報変更｜LMS", webDriver.getTitle());
+		assertEquals("勤怠情報の登録が完了しました。", updateMsg.getText());
 		assertEquals(formatDate, punchInTime.getText());
 		assertEquals("", punchOutTime.getText());
 
@@ -131,12 +133,14 @@ public class Case10 {
 		alert.accept();
 
 		pageLoadTimeout(10);
+		WebElement updateMsg = webDriver.findElement(By.cssSelector(".alert > span"));
 		WebElement punchOutTime = webDriver.findElement(By.cssSelector(".info td:nth-of-type(4)"));
 		Date date = new Date();
 		SimpleDateFormat df = new SimpleDateFormat("HH:mm");
 		String formatDate = df.format(date);
 
 		assertEquals("勤怠情報変更｜LMS", webDriver.getTitle());
+		assertEquals("勤怠情報の登録が完了しました。", updateMsg.getText());
 		assertEquals(formatDate, punchOutTime.getText());
 
 		getEvidence(new Object() {

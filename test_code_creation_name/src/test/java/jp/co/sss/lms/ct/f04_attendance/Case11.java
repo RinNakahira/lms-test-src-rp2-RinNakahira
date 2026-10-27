@@ -103,6 +103,10 @@ public class Case11 {
 	@Order(5)
 	@DisplayName("テスト05 すべての研修日程の勤怠情報を正しく更新し勤怠管理画面に遷移")
 	void test05() {
+		WebElement yRegularHoursBtn = webDriver.findElement(By.cssSelector("button[value=\"0\"]"));
+		yRegularHoursBtn.click();
+		WebElement tRegularHoursBtn = webDriver.findElement(By.cssSelector("button[value=\"1\"]"));
+		tRegularHoursBtn.click();
 
 		WebElement updateBtn = webDriver.findElement(By.cssSelector("input[value=\"更新\"]"));
 		scrollBy("200");
@@ -114,9 +118,17 @@ public class Case11 {
 
 		pageLoadTimeout(10);
 		WebElement updateMsg = webDriver.findElement(By.cssSelector(".alert > span"));
+		WebElement yPunchInTime = webDriver.findElement(By.cssSelector("tr td:nth-of-type(3)"));
+		WebElement yPunchOutTime = webDriver.findElement(By.cssSelector("tr td:nth-of-type(4)"));
+		WebElement tPunchInTime = webDriver.findElement(By.cssSelector("tr:nth-of-type(2) td:nth-of-type(3)"));
+		WebElement tPunchOutTime = webDriver.findElement(By.cssSelector("tr:nth-of-type(2) td:nth-of-type(4)"));
 
 		assertEquals("勤怠情報変更｜LMS", webDriver.getTitle());
 		assertEquals("勤怠情報の登録が完了しました。", updateMsg.getText());
+		assertEquals("09:00", yPunchInTime.getText());
+		assertEquals("18:00", yPunchOutTime.getText());
+		assertEquals("09:00", tPunchInTime.getText());
+		assertEquals("18:00", tPunchOutTime.getText());
 
 		getEvidence(new Object() {
 		});

@@ -75,9 +75,6 @@ public class Case16 {
 		WebElement checkbox = webDriver.findElement(By.cssSelector("input[name=\"securityFlg\"]"));
 		checkbox.click();
 
-		getEvidence(new Object() {
-		}, "1");
-
 		WebElement nextBtn = webDriver.findElement(By.cssSelector("#main button[type=\"submit\"]"));
 		nextBtn.click();
 

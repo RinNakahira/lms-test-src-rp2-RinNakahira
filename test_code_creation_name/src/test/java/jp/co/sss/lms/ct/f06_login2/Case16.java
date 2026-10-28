@@ -3,6 +3,8 @@ package jp.co.sss.lms.ct.f06_login2;
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -90,28 +92,150 @@ public class Case16 {
 	@Order(4)
 	@DisplayName("テスト04 パスワードを未入力で「変更」ボタン押下")
 	void test04() {
-		// TODO ここに追加
+		WebElement currentPassword = webDriver.findElement(By.id("currentPassword"));
+		currentPassword.clear();
+
+		WebElement newPassword = webDriver.findElement(By.id("password"));
+		newPassword.clear();
+
+		WebElement confirmPassword = webDriver.findElement(By.id("passwordConfirm"));
+		confirmPassword.clear();
+
+		WebElement submitBtn = webDriver.findElement(By.cssSelector("button[type=\"submit\"]"));
+		scrollTo(String.valueOf(submitBtn.getLocation().getY()));
+		submitBtn.click();
+
+		visibilityTimeout(By.id("div-modal"), 10);
+		WebElement updateBtn = webDriver.findElement(By.id("upd-btn"));
+		updateBtn.click();
+
+		visibilityTimeout(By.className("error"), 10);
+		List<WebElement> errors = webDriver.findElements(By.className("error"));
+		List<WebElement> errorInputs = webDriver.findElements(By.className("errorInput"));
+
+		assertEquals("パスワード変更 | LMS", webDriver.getTitle());
+		//一つ目の要素が空のspanタグとなっているため、二つ目から検証する
+		assertEquals("現在のパスワードは必須です。", errors.get(1).getText());
+		//assertEquals("パスワードは必須です。\r\n「パスワード」には半角英数字のみ使用可能です。また、半角英大文字、半角英小文字、数字を含めた8～20文字を入力してください。",
+		//		errors.get(2).getText());
+		assertEquals("確認パスワードは必須です。", errors.get(3).getText());
+		assertEquals("currentPassword", errorInputs.get(0).getAttribute("id"));
+		assertEquals("password", errorInputs.get(1).getAttribute("id"));
+		assertEquals("passwordConfirm", errorInputs.get(2).getAttribute("id"));
+
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
 	@Order(5)
 	@DisplayName("テスト05 20文字以上の変更パスワードを入力し「変更」ボタン押下")
 	void test05() {
-		// TODO ここに追加
+		WebElement currentPassword = webDriver.findElement(By.id("currentPassword"));
+		currentPassword.clear();
+		currentPassword.sendKeys("StudentAA01");
+
+		WebElement newPassword = webDriver.findElement(By.id("password"));
+		newPassword.clear();
+		newPassword.sendKeys("ABCDEFGhijklmn1234567");
+
+		WebElement confirmPassword = webDriver.findElement(By.id("passwordConfirm"));
+		confirmPassword.clear();
+		confirmPassword.sendKeys("ABCDEFGhijklmn1234567");
+
+		WebElement submitBtn = webDriver.findElement(By.cssSelector("button[type=\"submit\"]"));
+		scrollTo(String.valueOf(submitBtn.getLocation().getY()));
+		submitBtn.click();
+
+		visibilityTimeout(By.id("div-modal"), 10);
+		WebElement updateBtn = webDriver.findElement(By.id("upd-btn"));
+		updateBtn.click();
+
+		visibilityTimeout(By.className("error"), 10);
+		List<WebElement> errors = webDriver.findElements(By.className("error"));
+		WebElement errorInput = webDriver.findElement(By.className("errorInput"));
+
+		assertEquals("パスワード変更 | LMS", webDriver.getTitle());
+		//一つ目の要素が空のspanタグとなっているため、二つ目を検証する
+		assertEquals("パスワードの長さが最大値(20)を超えています。", errors.get(1).getText());
+		assertEquals("password", errorInput.getAttribute("id"));
+
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
 	@Order(6)
 	@DisplayName("テスト06 ポリシーに合わない変更パスワードを入力し「変更」ボタン押下")
 	void test06() {
-		// TODO ここに追加 
+		WebElement currentPassword = webDriver.findElement(By.id("currentPassword"));
+		currentPassword.clear();
+		currentPassword.sendKeys("StudentAA01");
+
+		WebElement newPassword = webDriver.findElement(By.id("password"));
+		newPassword.clear();
+		newPassword.sendKeys("password123");
+
+		WebElement confirmPassword = webDriver.findElement(By.id("passwordConfirm"));
+		confirmPassword.clear();
+		confirmPassword.sendKeys("password123");
+
+		WebElement submitBtn = webDriver.findElement(By.cssSelector("button[type=\"submit\"]"));
+		scrollTo(String.valueOf(submitBtn.getLocation().getY()));
+		submitBtn.click();
+
+		visibilityTimeout(By.id("div-modal"), 10);
+		WebElement updateBtn = webDriver.findElement(By.id("upd-btn"));
+		updateBtn.click();
+
+		visibilityTimeout(By.className("error"), 10);
+		List<WebElement> errors = webDriver.findElements(By.className("error"));
+		WebElement errorInput = webDriver.findElement(By.className("errorInput"));
+
+		assertEquals("パスワード変更 | LMS", webDriver.getTitle());
+		//一つ目の要素が空のspanタグとなっているため、二つ目を検証する
+		assertEquals("「パスワード」には半角英数字のみ使用可能です。また、半角英大文字、半角英小文字、数字を含めた8～20文字を入力してください。", errors.get(1).getText());
+		assertEquals("password", errorInput.getAttribute("id"));
+
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
 	@Order(7)
 	@DisplayName("テスト07 一致しない確認パスワードを入力し「変更」ボタン押下")
 	void test07() {
-		// TODO ここに追加
+		WebElement currentPassword = webDriver.findElement(By.id("currentPassword"));
+		currentPassword.clear();
+		currentPassword.sendKeys("StudentAA01");
+
+		WebElement newPassword = webDriver.findElement(By.id("password"));
+		newPassword.clear();
+		newPassword.sendKeys("Password123");
+
+		WebElement confirmPassword = webDriver.findElement(By.id("passwordConfirm"));
+		confirmPassword.clear();
+		confirmPassword.sendKeys("P4ssw0rd123");
+
+		WebElement submitBtn = webDriver.findElement(By.cssSelector("button[type=\"submit\"]"));
+		scrollTo(String.valueOf(submitBtn.getLocation().getY()));
+		submitBtn.click();
+
+		visibilityTimeout(By.id("div-modal"), 10);
+		WebElement updateBtn = webDriver.findElement(By.id("upd-btn"));
+		updateBtn.click();
+
+		visibilityTimeout(By.className("error"), 10);
+		List<WebElement> errors = webDriver.findElements(By.className("error"));
+		WebElement errorInput = webDriver.findElement(By.className("errorInput"));
+
+		assertEquals("パスワード変更 | LMS", webDriver.getTitle());
+		//一つ目の要素が空のspanタグとなっているため、二つ目を検証する
+		assertEquals("パスワードと確認パスワードが一致しません。", errors.get(1).getText());
+		assertEquals("password", errorInput.getAttribute("id"));
+
+		getEvidence(new Object() {
+		});
 	}
 
 }

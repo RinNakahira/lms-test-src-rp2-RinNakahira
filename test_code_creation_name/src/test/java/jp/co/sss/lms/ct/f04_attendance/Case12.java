@@ -113,7 +113,7 @@ public class Case12 {
 		endMinute.selectByIndex(0);
 
 		WebElement updateBtn = webDriver.findElement(By.cssSelector("input[value=\"更新\"]"));
-		scrollTo("400");
+		scrollTo(String.valueOf(updateBtn.getLocation().getY()));
 		updateBtn.click();
 
 		//"更新します。よろしいですか？"アラートが表示される
@@ -147,7 +147,7 @@ public class Case12 {
 		endMinute.selectByVisibleText("00");
 
 		WebElement updateBtn = webDriver.findElement(By.cssSelector("input[value=\"更新\"]"));
-		scrollTo("400");
+		scrollTo(String.valueOf(updateBtn.getLocation().getY()));
 		updateBtn.click();
 
 		//"更新します。よろしいですか？"アラートが表示される
@@ -177,7 +177,7 @@ public class Case12 {
 		startMinute.selectByVisibleText("00");
 
 		WebElement updateBtn = webDriver.findElement(By.cssSelector("input[value=\"更新\"]"));
-		scrollTo("400");
+		scrollTo(String.valueOf(updateBtn.getLocation().getY()));
 		updateBtn.click();
 
 		//"更新します。よろしいですか？"アラートが表示される
@@ -209,7 +209,7 @@ public class Case12 {
 		blankTime.selectByVisibleText("2時間");
 
 		WebElement updateBtn = webDriver.findElement(By.cssSelector("input[value=\"更新\"]"));
-		scrollTo("400");
+		scrollTo(String.valueOf(updateBtn.getLocation().getY()));
 		updateBtn.click();
 
 		//"更新します。よろしいですか？"アラートが表示される
@@ -241,7 +241,7 @@ public class Case12 {
 				"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
 		WebElement updateBtn = webDriver.findElement(By.cssSelector("input[value=\"更新\"]"));
-		scrollTo("400");
+		scrollTo(String.valueOf(updateBtn.getLocation().getY()));
 		updateBtn.click();
 
 		//"更新します。よろしいですか？"アラートが表示される

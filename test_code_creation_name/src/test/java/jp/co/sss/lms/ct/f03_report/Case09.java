@@ -140,7 +140,7 @@ public class Case09 {
 		learningTopicBefore.clear();
 
 		WebElement submitBtn = webDriver.findElement(By.cssSelector("#main button"));
-		scrollBy("500");
+		scrollTo(String.valueOf(submitBtn.getLocation().getY()));
 		submitBtn.click();
 
 		pageLoadTimeout(10);
@@ -178,7 +178,7 @@ public class Case09 {
 		understandingDegreeBefore.selectByIndex(0);
 
 		WebElement submitBtn = webDriver.findElement(By.cssSelector("#main button"));
-		scrollBy("500");
+		scrollTo(String.valueOf(submitBtn.getLocation().getY()));
 		submitBtn.click();
 
 		pageLoadTimeout(10);
@@ -216,7 +216,7 @@ public class Case09 {
 		goalAchievementDegreeBefore.sendKeys("よくできた");
 
 		WebElement submitBtn = webDriver.findElement(By.cssSelector("#main button"));
-		scrollBy("500");
+		scrollTo(String.valueOf(submitBtn.getLocation().getY()));
 		submitBtn.click();
 
 		pageLoadTimeout(10);
@@ -251,7 +251,7 @@ public class Case09 {
 		goalAchievementDegreeBefore.sendKeys("-1");
 
 		WebElement submitBtn = webDriver.findElement(By.cssSelector("#main button"));
-		scrollBy("500");
+		scrollTo(String.valueOf(submitBtn.getLocation().getY()));
 		submitBtn.click();
 
 		pageLoadTimeout(10);
@@ -288,7 +288,7 @@ public class Case09 {
 		impressionBefore.clear();
 
 		WebElement submitBtn = webDriver.findElement(By.cssSelector("#main button"));
-		scrollBy("500");
+		scrollTo(String.valueOf(submitBtn.getLocation().getY()));
 		submitBtn.click();
 
 		pageLoadTimeout(10);
@@ -332,7 +332,7 @@ public class Case09 {
 				"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
 		WebElement submitBtn = webDriver.findElement(By.cssSelector("#main button"));
-		scrollBy("500");
+		scrollTo(String.valueOf(submitBtn.getLocation().getY()));
 		submitBtn.click();
 
 		pageLoadTimeout(10);

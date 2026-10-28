@@ -109,7 +109,7 @@ public class Case11 {
 		tRegularHoursBtn.click();
 
 		WebElement updateBtn = webDriver.findElement(By.cssSelector("input[value=\"更新\"]"));
-		scrollBy("200");
+		scrollBy(String.valueOf(updateBtn.getLocation().getY()));
 		updateBtn.click();
 
 		//"更新します。よろしいですか？"アラートが表示される

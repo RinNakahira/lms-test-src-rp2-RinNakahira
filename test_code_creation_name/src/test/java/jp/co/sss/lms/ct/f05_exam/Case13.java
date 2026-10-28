@@ -3,6 +3,7 @@ package jp.co.sss.lms.ct.f05_exam;
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.junit.jupiter.api.AfterAll;
@@ -128,7 +129,7 @@ public class Case13 {
 	@DisplayName("テスト06 未回答の状態で「確認画面へ進む」ボタンを押下し試験回答確認画面に遷移")
 	void test06() {
 		WebElement confirmBtn = webDriver.findElement(By.cssSelector("input[value=\"確認画面へ進む\"]"));
-		scrollTo("4000");
+		scrollTo(String.valueOf(confirmBtn.getLocation().getY()));
 		confirmBtn.click();
 
 		pageLoadTimeout(10);
@@ -146,7 +147,7 @@ public class Case13 {
 	@DisplayName("テスト07 「回答を送信する」ボタンを押下し試験結果画面に遷移")
 	void test07() throws InterruptedException {
 		WebElement sendBtn = webDriver.findElement(By.id("sendButton"));
-		scrollTo("4000");
+		scrollTo(String.valueOf(sendBtn.getLocation().getY()));
 		sendBtn.click();
 
 		//"回答を送信します。よろしいですか？"アラートが表示される
@@ -168,8 +169,26 @@ public class Case13 {
 	@DisplayName("テスト08 「戻る」ボタンを押下し試験開始画面に遷移後当該試験の結果が反映される")
 	void test08() {
 		WebElement returnBtn = webDriver.findElement(By.cssSelector("input[value=\"戻る\"]"));
-		scrollTo("4000");
+		scrollTo(String.valueOf(returnBtn.getLocation().getY()));
 		returnBtn.click();
+
+		pageLoadTimeout(10);
+		WebElement target = webDriver
+				.findElement(By.cssSelector("#main > div > table:nth-of-type(2) > tbody > tr:last-of-type"));
+		WebElement targetScore = target.findElement(By.cssSelector("td:nth-of-type(2)"));
+		WebElement targetDate = target.findElement(By.cssSelector("td:nth-of-type(4)"));
+		SimpleDateFormat df = new SimpleDateFormat("yyyy年MM月dd日");
+		String nowDate = df.format(new Date());
+
+		assertEquals("試験【ITリテラシー①】 | LMS", webDriver.getTitle());
+		assertEquals("0.0点", targetScore.getText());
+		assertEquals(nowDate, targetDate.getText().substring(0, 11));
+
+		getEvidence(new Object() {
+		}, "1");
+		scrollBy("400");
+		getEvidence(new Object() {
+		}, "2");
 	}
 
 }

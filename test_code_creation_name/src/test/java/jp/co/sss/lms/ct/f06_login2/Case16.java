@@ -108,13 +108,20 @@ public class Case16 {
 
 		visibilityTimeout(By.className("error"), 10);
 		List<WebElement> errors = webDriver.findElements(By.className("error"));
+		String[] errorMsgs = errors.get(2).getText().split("\n");
 		List<WebElement> errorInputs = webDriver.findElements(By.className("errorInput"));
 
 		assertEquals("パスワード変更 | LMS", webDriver.getTitle());
 		//一つ目の要素が空のspanタグとなっているため、二つ目から検証する
 		assertEquals("現在のパスワードは必須です。", errors.get(1).getText());
-		//assertEquals("パスワードは必須です。\r\n「パスワード」には半角英数字のみ使用可能です。また、半角英大文字、半角英小文字、数字を含めた8～20文字を入力してください。",
-		//		errors.get(2).getText());
+		//二つのエラーメッセージがランダムな順で結合されているため
+		for (String errorMsg : errorMsgs) {
+			if (errorMsg.length() > 20) {
+				assertEquals("「パスワード」には半角英数字のみ使用可能です。また、半角英大文字、半角英小文字、数字を含めた8～20文字を入力してください。", errorMsg);
+			} else {
+				assertEquals("パスワードは必須です。", errorMsg);
+			}
+		}
 		assertEquals("確認パスワードは必須です。", errors.get(3).getText());
 		assertEquals("currentPassword", errorInputs.get(0).getAttribute("id"));
 		assertEquals("password", errorInputs.get(1).getAttribute("id"));

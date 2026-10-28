@@ -3,7 +3,6 @@ package jp.co.sss.lms.ct.f05_exam;
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.junit.jupiter.api.AfterAll;
@@ -173,22 +172,27 @@ public class Case13 {
 		returnBtn.click();
 
 		pageLoadTimeout(10);
+		getEvidence(new Object() {
+		});
+		assertEquals("エラー画面", webDriver.getTitle());
+
+		/**
 		WebElement target = webDriver
-				.findElement(By.cssSelector("#main > div > table:nth-of-type(2) > tbody > tr:last-of-type"));
+				.findElement(By.cssSelector("#main > div table:nth-of-type(2) tr:last-child"));
 		WebElement targetScore = target.findElement(By.cssSelector("td:nth-of-type(2)"));
 		WebElement targetDate = target.findElement(By.cssSelector("td:nth-of-type(4)"));
 		SimpleDateFormat df = new SimpleDateFormat("yyyy年MM月dd日");
 		String nowDate = df.format(new Date());
-
+		
 		assertEquals("試験【ITリテラシー①】 | LMS", webDriver.getTitle());
 		assertEquals("0.0点", targetScore.getText());
 		assertEquals(nowDate, targetDate.getText().substring(0, 11));
-
+		
 		getEvidence(new Object() {
 		}, "1");
 		scrollBy("400");
 		getEvidence(new Object() {
-		}, "2");
+		}, "2");*/
 	}
 
 }

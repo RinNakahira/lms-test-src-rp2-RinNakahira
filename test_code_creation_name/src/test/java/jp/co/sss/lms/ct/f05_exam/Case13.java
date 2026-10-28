@@ -3,6 +3,7 @@ package jp.co.sss.lms.ct.f05_exam;
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.junit.jupiter.api.AfterAll;
@@ -113,10 +114,11 @@ public class Case13 {
 	@Order(5)
 	@DisplayName("テスト05 「試験を開始する」ボタンを押下し試験問題画面に遷移")
 	void test05() {
+		scrollTo("0");
 		WebElement examStartBtn = webDriver.findElement(By.cssSelector("input[value=\"試験を開始する\"]"));
 		examStartBtn.click();
 
-		pageLoadTimeout(10);
+		visibilityTimeout(By.id("remainTime"), 10);
 		assertEquals("ITリテラシー① | LMS", webDriver.getTitle());
 
 		getEvidence(new Object() {
@@ -131,7 +133,7 @@ public class Case13 {
 		scrollTo(String.valueOf(confirmBtn.getLocation().getY()));
 		confirmBtn.click();
 
-		pageLoadTimeout(10);
+		visibilityTimeout(By.id("remainTime"), 10);
 		WebElement answerCount = webDriver.findElement(By.cssSelector("#examBeing small"));
 
 		assertEquals("ITリテラシー① | LMS", webDriver.getTitle());
@@ -172,27 +174,23 @@ public class Case13 {
 		returnBtn.click();
 
 		pageLoadTimeout(10);
-		getEvidence(new Object() {
-		});
-		assertEquals("エラー画面", webDriver.getTitle());
 
-		/**
 		WebElement target = webDriver
 				.findElement(By.cssSelector("#main > div table:nth-of-type(2) tr:last-child"));
 		WebElement targetScore = target.findElement(By.cssSelector("td:nth-of-type(2)"));
 		WebElement targetDate = target.findElement(By.cssSelector("td:nth-of-type(4)"));
 		SimpleDateFormat df = new SimpleDateFormat("yyyy年MM月dd日");
 		String nowDate = df.format(new Date());
-		
+
 		assertEquals("試験【ITリテラシー①】 | LMS", webDriver.getTitle());
 		assertEquals("0.0点", targetScore.getText());
 		assertEquals(nowDate, targetDate.getText().substring(0, 11));
-		
+
 		getEvidence(new Object() {
 		}, "1");
 		scrollBy("400");
 		getEvidence(new Object() {
-		}, "2");*/
+		}, "2");
 	}
 
 }
